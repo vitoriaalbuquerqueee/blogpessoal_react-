@@ -10,7 +10,7 @@ function Navbar() {
         </Link>
 
         <div className="flex gap-4">
-          <Link to="/home" className="hover:underline">Home</Link>
+          <Link to='/home' className="text-2xl font-bold">Blog Pessoal</Link>
           <span className="hover:underline cursor-pointer">Postagens</span>
           <span className="hover:underline cursor-pointer">Temas</span>
           <span className="hover:underline cursor-pointer">Cadastrar tema</span>
