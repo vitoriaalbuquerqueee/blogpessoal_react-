@@ -1,19 +1,28 @@
-import { useContext, useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import { ClipLoader } from 'react-spinners';
-import { AuthContext } from '../../contexts/AuthContext';
-import type Tema from '../../models/Tema';
-import { buscar, deletar } from '../../services/Service';
+import axios from "axios";
+import { useContext, useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { AuthContext } from "../../contexts/AuthContext";
+import type Tema from "../../models/Tema";
+import { buscar, deletar } from "../../services/Service";
+import { ClipLoader } from "react-spinners";
 
 function DeletarTema() {
+
+    // Objeto responsável redirecionar o tema para uma outra rota
     const navigate = useNavigate();
 
-    const [tema, setTema] = useState<Tema>({} as Tema);
+    // Estado responsável por controlar o loader (animação de carregamento)
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
+    // Estado responsável por armazenar os dados do tema que será deletado no Backend (API)
+    const [tema, setTema] = useState<Tema>({} as Tema);
+
+    // Consumo da Context para obter os dados do tema autenticado (estado usuario)
+    // e a função handleLogout para efetuar logout caso o token seja inválido
     const { usuario, handleLogout } = useContext(AuthContext);
     const token = usuario.token;
 
+    // Acessar o parâmetro da rota (id do tema)
     const { id } = useParams<{ id: string }>();
 
     async function buscarPorId(id: string) {
